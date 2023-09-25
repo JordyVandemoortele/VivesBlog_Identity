@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VivesBlog.Model;
 
 namespace VivesBlog.Core
 {
-    public class VivesBlogDbContext: DbContext
+    public class VivesBlogDbContext: IdentityDbContext
     {
         public VivesBlogDbContext(DbContextOptions<VivesBlogDbContext> options): base(options)
         {

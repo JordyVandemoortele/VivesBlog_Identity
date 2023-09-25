@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VivesBlog.Core;
 using VivesBlog.Services;
@@ -11,6 +12,12 @@ builder.Services.AddDbContext<VivesBlogDbContext>(options =>
 {
     options.UseInMemoryDatabase(nameof(VivesBlogDbContext));
 });
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+	options.SignIn.RequireConfirmedAccount = false;
+})
+	.AddEntityFrameworkStores<VivesBlogDbContext>();
 
 builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<PersonService>();
@@ -36,6 +43,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
