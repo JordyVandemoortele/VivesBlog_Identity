@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VivesBlog.Model;
 using VivesBlog.Services;
 using VivesBlog.Ui.Mvc.Models;
 
 namespace VivesBlog.Ui.Mvc.Controllers
 {
+    [Authorize]
     public class PeopleController : Controller
     {
         private readonly PersonService _personService;

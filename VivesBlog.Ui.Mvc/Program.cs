@@ -17,7 +17,22 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
 	options.SignIn.RequireConfirmedAccount = false;
 })
-	.AddEntityFrameworkStores<VivesBlogDbContext>();
+    //Roles are activated now
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<VivesBlogDbContext>();
+
+//Authorize
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    //Security
+    options.Cookie.HttpOnly = true;
+    //Path to go when not authorized
+    options.LoginPath = "/Auth/Login";
+    options.AccessDeniedPath = "/Auth/AccesDenied";
+    //Logout automaticly after 5 minutes of inactivity
+    options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+});
 
 builder.Services.AddScoped<ArticleService>();
 builder.Services.AddScoped<PersonService>();
